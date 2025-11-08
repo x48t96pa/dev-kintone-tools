@@ -1,0 +1,49 @@
+version: "3.8"
+services:
+  ############################################
+  # Kintoneデータ操作する サーバーレス バックエンド
+  ############################################
+  serverless:
+    # 管理コンテナ名
+    container_name: ktool-serverless
+    # Dockerファイルにて 定義
+    build: ./container/nodejs/lambda
+    # envファイルの ロード
+    env_file:
+      - ./container/nodejs/lambda/.env.example
+    # 場所
+    volumes:
+      - ./source/apserverlessi/:/usr/src/app
+      # - ./container/nodejs/lambda/cert/:/usr/src/app/cert
+      - ./container/nodejs/lambda/.env.example:/usr/src/app/.env
+    # 利用ポート
+    ports:
+      - ${API_PORT:-3000}:${API_PORT:-3000}
+    # コンテナを正常終了するのを防ぐ
+    tty: true
+  ############################################
+  # Kintone JS カスタマイズ
+  ############################################
+  customize:
+    # 管理コンテナ名
+    container_name: ktool-customize
+    # Dockerファイルにて 定義
+    build: ./container/nodejs/browser
+    # 場所
+    volumes:
+      - ./source/customize/:/var/www/html
+    # コンテナを正常終了するのを防ぐ
+    tty: true
+  ############################################
+  # Kintone ブラウザ開発者ツールで動作するJS
+  ############################################
+  browser:
+    # 管理コンテナ名
+    container_name: ktool-browser
+    # Dockerファイルにて 定義
+    build: ./container/nodejs/browser
+    # 場所
+    volumes:
+      - ./source/browser/:/var/www/html
+    # コンテナを正常終了するのを防ぐ
+    tty: true
