@@ -13,7 +13,7 @@ services:
       - ./container/nodejs/lambda/.env.example
     # 場所
     volumes:
-      - ./source/apserverlessi/:/usr/src/app
+      - ./source/serverless/:/usr/src/app
       # - ./container/nodejs/lambda/cert/:/usr/src/app/cert
       - ./container/nodejs/lambda/.env.example:/usr/src/app/.env
     # 利用ポート
