@@ -1,0 +1,9 @@
+{
+  "watch": ["src"],
+  "ext": "ts,json",
+  "ignore": ["src/**/*.test.ts"],
+  "exec": "npm run build:local && node dist/local.js",
+  "env": {
+    "NODE_ENV": "dev"
+  }
+}

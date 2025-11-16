@@ -1,0 +1,47 @@
+{
+  "name": "ktool-serverless",
+  "private": true,
+  "version": "1.0.0",
+  "description": "Serverless Express Lambda with TypeScript",
+  "main": "dist/lambda.js",
+  "type": "module",
+  "scripts": {
+    "dev": "nodemon",
+    "build": "npm run build:lambda && npm run build:local",
+    "build:lambda": "node esbuild.config.js --entryPoints src/lambda.ts --outfile dist/lambda.js",
+    "build:local": "node esbuild.config.js --entryPoints src/local.ts --outfile dist/local.js",
+    "dev:job:sample": "npm-run-all -s build:job:sample start:job:sample",
+    "start:job:sample": "node dist/job_sample.js",
+    "build:job:sample": "node esbuild.config.js --entryPoints src/scripts/JobSample.ts --outfile dist/job_sample.js",
+    "lint": "eslint src/**/*.ts",
+    "format": "prettier --write \"src/**/*.ts\""
+  },
+  "dependencies": {
+    "@codegenie/serverless-express": "^4.14.0",
+    "@date-fns/tz": "^1.1.2",
+    "@kintone/rest-api-client": "^5.5.2",
+    "date-fns": "^4.1.0",
+    "express": "^4.21.1",
+    "lodash-es": "^4.17.21",
+    "winston": "^3.17.0"
+  },
+  "devDependencies": {
+    "@types/express": "^5.0.0",
+    "@types/lodash-es": "^4.17.12",
+    "@types/node": "^22.10.1",
+    "@typescript-eslint/eslint-plugin": "^8.15.0",
+    "@typescript-eslint/parser": "^8.15.0",
+    "commander": "^14.0.2",
+    "esbuild": "^0.24.0",
+    "esbuild-plugin-define": "^0.5.0",
+    "eslint": "^9.15.0",
+    "nodemon": "^3.1.7",
+    "npm-run-all": "^4.1.5",
+    "prettier": "^3.3.3",
+    "source-map-support": "^0.5.21",
+    "typescript": "^5.7.2"
+  },
+  "engines": {
+    "node": ">=22.0.0"
+  }
+}
